@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.hb.pro03.model.UserDao">
+  	
+  	<insert id="insertOne" parameterType="com.hb.pro03.model.UserVo">
+  	INSERT INTO MEMBER VALUES (#{id},#{pw},#{name},#{birth},#{phone},#{email},#{addr},0,'GREEN')
+  	</insert>
+  	
+  	<select id="idCk" parameterType="String" resultType="com.hb.pro03.model.UserVo">
+  	SELECT * FROM MEMBER WHERE ID=#{id}
+  	</select>
+  
+  	<select id="selectAll" resultType="com.hb.pro03.model.UserVo">
+  	<!-- SELECT * FROM GUEST -->
+  	</select>
+  	
+  	<update id="updateOne" parameterType="com.hb.pro03.model.UserVo">
+  	<!-- UPDATE GUEST SET NAME=#{name},PAY=#{pay} WHERE SABUN=#{sabun} -->
+  	</update>
+  	
+  	<delete id="deleteOne" parameterType="int">
+  	<!-- DELETE FROM GUEST WHERE SABUN=#{value} -->
+  	</delete>
+  	
+  </mapper>
+  
+  
+  
+  
