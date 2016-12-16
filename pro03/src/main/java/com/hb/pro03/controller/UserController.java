@@ -3,7 +3,6 @@ package com.hb.pro03.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
@@ -43,15 +42,21 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/idck",method=RequestMethod.POST)
-	public void idCk(Model model,@RequestParam("id") int id){
-		System.out.println("idck"+id);
+	public String idCk(Model model,@RequestParam("id") String id){//,HttpServletResponse res){
+		System.out.println("id:"+id);
 //		res.setCharacterEncoding("UTF-8");
 //		res.setContentType("text/html");
-//		UserDao mapper = sqlSession.getMapper(UserDao.class);
-////		model.addAttribute("bean", mapper.idCk(id));
-////		return "redirect:/joinform";
-////		String result=null;
-////		result=mapper.idCk(id);
+		UserDao mapper = sqlSession.getMapper(UserDao.class);
+//		UserVo bean = mapper.idCk(id);
+		
+		System.out.println(mapper.idCk(id));
+		
+		model.addAttribute("cnt", mapper.idCk(id));
+		return "idck";
+//		return "redirect:/joinform";
+//		String result=null;
+//		result=mapper.idCk(id);
+		
 //		PrintWriter out;
 //		try {
 //			out = res.getWriter();

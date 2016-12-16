@@ -9,8 +9,8 @@
   	INSERT INTO MEMBER VALUES (#{id},#{pw},#{name},#{birth},#{phone},#{email},#{addr},0,'GREEN')
   	</insert>
   	
-  	<select id="idCk" parameterType="String" resultType="com.hb.pro03.model.UserVo">
-  	SELECT * FROM MEMBER WHERE ID=#{id}
+  	<select id="idCk" parameterType="String" resultType="int">
+  	SELECT COUNT(*) AS CNT FROM MEMBER WHERE ID=#{id}
   	</select>
   
   	<select id="selectAll" resultType="com.hb.pro03.model.UserVo">

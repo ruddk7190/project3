@@ -18,6 +18,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <script type="text/javascript">
+
 	$(document).ready(function(){
 		/* $(function() { 
 			$("#addrFind").postcodifyPopUp(); 
@@ -26,101 +27,112 @@
 		$('#idCK').on('click',function(){
 			$.ajax({
 				url:"/pro03/idck",
-				dataType:'html',
 				type: 'post',
-				data: ({
-					id: $("#id").val()
-				}),
+				data: {id:$('#id').val()},
 				success: function(data){
-					if($.trim(data)=='YES'){
+					if($.trim(data)==0){
 						alert("사용 가능합니다.");
 						$("#hid").val("1");
 					}else{
 						alert("사용 불가능합니다.");
+						$("#hid").val("0");
 						$("#id").val("");
 					}
 				}
 			});
 		});
 		
-		
-		/* $('form').on('submit',function(){
-			
+		$('form').on('submit',function(){
 			if ($("#id").val() == "") {
 			    alert("아이디를 꼭 입력하세요!");
 			    $("#id").focus();
 			    return false;
-			} else if($("#hid").val() == "0"){
+			 } else if($("#hid").val() == "0"){
 				alert("아이디 중복검사 하세요!");
 				return false;
-				$("#id").focus();
+				$("#id").focus(); 
 			}else if ($("#pw").val() == "") {
 			    alert("비밀번호를 꼭 입력하세요!");
 			    $("#pw").focus();
 			    return false;
 			} else if ($('#pw').val().length <= 5){
-				alert("6자리 ~ 12자리 입니다!");
+				alert("비밀번호는 6자리 이상 작성하세요!");
 				$("#pw").val("");
 			    $("#pw").focus();
 			    return false;
 			}else if (!isNaN($("#pw").val())){
-				alert("영문자/숫자 조합으로 하세요!");
+				alert("비밀번호를 영문자/숫자 조합으로 하세요!");
 				$("#pw").val("");
 			    $("#pw").focus();
 			    return false;
-			}else if ($("#pw").val() != $("#pwChk").val()) {
-			    alert("비밀번호와 비밀번호 확인이 일치하지않습니다.");
-			    $("#pwChk").val("");
-			    $("#pwChk").focus();
+			}else if ($("#pw").val() != $("#pw2").val()) {
+			    alert("비밀번호와 비밀번호 확인이 일치하지않습니다!");
+			    $("#pw2").val("");
+			    $("#pw2").focus();
 			    return false;
 			}else if ($("#name").val() == ""){
 				alert("이름을 꼭 입력하세요!");
 			    $("#name").focus();
 			    return false;
-			}else if ($("#email").val() == ""){
-				alert("이메일을 꼭 입력하세요!");
-			    $("#email").focus();
+			}else if ($("#birth1").val() == ""){
+				alert("생년월일을 꼭 입력하세요!");
+			    $("#birth1").focus();
 			    return false;
-			}else if ($("#email1").val() == ""){
-				alert("이메일을 꼭 입력하세요!");
-			    $("#email1").focus();
+			}else if ($("#birth1").val().length != 4 || !$.isNumeric($("#birth1").val())){
+				alert("생년월일의 '년도'를 4자리의 숫자로 입력하세요!");
+				$("#birth1").val("");
+			    $("#birth1").focus();
+			    return false; 
+			}else if ($("#birth2").val() == ""){
+				alert("생년월일을 꼭 입력하세요!");
+			    $("#birth2").focus();
+			    return false;
+			}else if ($("#birth2").val().length != 2 || !$.isNumeric($("#birth2").val())){
+				alert("생년월일의 '월'을 2자리의 숫자로 입력하세요!");
+				$("#birth2").val("");
+			    $("#birth2").focus();
+			    return false; 
+			}else if ($("#birth3").val() == ""){
+				alert("생년월일을 꼭 입력하세요!");
+			    $("#birth3").focus();
+			    return false;
+			}else if ($("#birth3").val().length != 2 || !$.isNumeric($("#birth3").val())){
+				alert("생년월일의 '일'을 2자리의 숫자로 입력하세요!");
+				$("#birth3").val("");
+			    $("#birth3").focus();
+			    return false; 
+			}else if ($("#phone").val() == ""){
+				alert("전화번호를 꼭 입력하세요!");
+			    $("#phone").focus();
+			    return false;
+			}else if ($("#phone").val().length != 13){
+				alert("전화번호를 '010-1111-1111' 의 형식으로 작성해주세요!");
+				$("#phone").val("");
+			    $("#phone").focus();
 			    return false;
 			}else if ($("#addr").val() == ""){
 				alert("주소를 꼭 입력하세요!");
 			    $("#addr").focus();
 			    return false;
-			}else if ($("#phone1").val() == ""){
-				alert("전화번호를 꼭 입력하세요!");
-			    $("#phone1").focus();
+			}else if ($("#email").val() == ""){
+				alert("이메일을 꼭 입력하세요!");
+			    $("#email").focus();
 			    return false;
-			}else if ($("#phone1").val().length != 3 || !$.isNumeric($("#phone1").val())){
-				alert("3자리의 숫자로 입력하세요");
-				$("#phone1").val("");
-			    $("#phone1").focus();
-			    return false;
-			}else if ($("#phone2").val() == ""){
-				alert("전화번호를 꼭 입력하세요!");
-			    $("#phone2").focus();
-			    return false;
-			}else if ($("#phone2").val().length != 4 || !$.isNumeric($("#phone2").val())){
-				alert("4자리의 숫자로 입력하세요");
-				$("#phone2").val("");
-			    $("#phone2").focus();
-			    return false;
-			}else if ($("#phone3").val() == ""){
-				alert("전화번호를 꼭 입력하세요!");
-			    $("#phone3").focus();
-			    return false;
-			}else if ($("#phone3").val().length != 4 || !$.isNumeric($("#phone3").val())){
-				alert("4자리의 숫자로 입력하세요");
-				$("#phone3").val("");
-			    $("#phone3").focus();
-			    return false;
+			}else if ($("#email").val() != ""){
+				var str = $("#email").val();
+				var n = str.indexOf("@");
+				if(n==-1){
+					alert("이메일 형식이 잘못되었습니다!");
+				    $("#email").focus();
+				    return false;
+				}else{
+					alert("정상적으로 가입완료");					
+				}
 			}else{
 				alert("정상적으로 가입완료");
 			}
 			
-		});	 */
+		});	  
 	});
 </script>
 </head>
@@ -157,9 +169,9 @@
        <form class="form-horizontal" action="/pro03/userInsert" method="post">
        
 		  <div class="form-group">
-		    <label for="inputId" class="col-sm-2 control-label">아이디</label>
+		    <label for="id" class="col-sm-2 control-label">아이디</label>
 		    <div class="col-sm-7">
-		      <input type="text" class="form-control" id="inputId" name="id" placeholder="영문,숫자 조합">
+		      <input type="text" class="form-control" id="id" name="id" placeholder="영문,숫자 조합"/>
 		      <input type="hidden" id="hid" name="hid" value="0"/>
 		    </div>
 		    <div class="col-sm-3">
@@ -168,54 +180,82 @@
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="inputPassword1" class="col-sm-2 control-label">비밀번호</label>
+		    <label for="pw" class="col-sm-2 control-label">비밀번호</label>
 		    <div class="col-sm-8">
-		      <input type="password" class="form-control" id="inputPassword1" name="pw" placeholder="6자 이상">
+		      <input type="password" class="form-control" id="pw" name="pw" placeholder="6자 이상"/>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="inputPassword2" class="col-sm-2 control-label">비밀번호 확인</label>
+		    <label for="pw2" class="col-sm-2 control-label">비밀번호 확인</label>
 		    <div class="col-sm-8">
-		      <input type="password" class="form-control" id="inputPassword2" name="pw2" placeholder="위의 비밀번호와 동일하게 작성">
+		      <input type="password" class="form-control" id="pw2" name="pw2" placeholder="위의 비밀번호와 동일하게 작성"/>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="name" class="col-sm-2 control-label">이름</label>
 		    <div class="col-sm-8">
-		      <input type="text" class="form-control" id="name" name="name" placeholder="실명">
+		      <input type="text" class="form-control" id="name" name="name" placeholder="실명"/>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="birth" class="col-sm-2 control-label">생년월일</label>
-		    <div class="col-sm-8">
-		      <input type="text" class="form-control" id="birth" name="birth" placeholder="1900/01/01">
+		    <div class="col-sm-2">
+		       <input type="text" class="form-control" id="birth1" placeholder="1900"/>&nbsp;년
 		    </div>
+		    <div class="col-sm-2">
+		       <input type="text" class="form-control" id="birth2" placeholder="01"/>&nbsp;월
+		    </div>
+		    <div class="col-sm-2">
+		       <input type="text" class="form-control" id="birth3" placeholder="01"/>일
+		    </div>
+		    <input type="hidden" class="form-control" id="birth" name="birth" placeholder="01"/>
+		    <!-- <div class="col-sm-8">
+		      <td colspan="2" class="form-control">
+		      <input type="tel" class="form-control" id="phone" name="phone" placeholder="010">
+		        <input type="text" id="birth1" name="birth"1 size="2" maxlength="4" placeholder="1900"/>&nbsp;/
+				<input type="text" id="birth2" name="birth2" size="3" maxlength="2" placeholder="01"/>&nbsp;/
+				<input type="text" id="birth3" name="birth3" size="3" maxlength="2" placeholder="01"/>
+		      </td>
+		    </div> -->
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="phone" class="col-sm-2 control-label">전화번호</label>
-		    <div class="col-sm-8">
-		      <input type="text" class="form-control" id="phone" name="phone" placeholder="010-1234-5678">
+		     <div class="col-sm-2">
+		       <input type="text" class="form-control" id="phone1" name="phone1" size="2" maxlength="3" placeholder="010"/>&nbsp;-
+		    </div>
+		    <div class="col-sm-2">
+		       <input type="text" class="form-control" id="phone2" name="phone2" size="3" maxlength="4" placeholder="1234"/>&nbsp;-
+		    </div>
+		    <div class="col-sm-2">
+		       <input type="text" class="form-control" id="phone3" name="phone3" size="3" maxlength="4" placeholder="5678"/>
+		    </div>
+		    <!-- <div class="col-sm-8">
+		      <td colspan="2" class="form-control">
+		        <input type="text" id="phone1" name="phone1" size="2" maxlength="3" placeholder="010"/>&nbsp;-
+				<input type="text" id="phone2" name="phone2" size="3" maxlength="4" placeholder="1234"/>&nbsp;-
+				<input type="text" id="phone3" name="phone3" size="3" maxlength="4" placeholder="5678"/>
+		      </td>
+		    </div> -->
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="addr" class="col-sm-2 control-label">주소</label>
+		    <div class="col-sm-7">
+		      <input type="text" class="form-control" id="addr" name="addr" placeholder="주소 작성"/>
+		    </div>
+		    <div class="col-sm-3">
+		      <button type="button" class="btn btn-default" id="addrFind">주소찾기</button>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="email" class="col-sm-2 control-label">이메일</label>
 		    <div class="col-sm-8">
-		      <input type="email" class="form-control" id="email" name="email" >
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="addr" class="col-sm-2 control-label">ADDRESS</label>
-		    <div class="col-sm-7">
-		      <input type="text" class="form-control" id="addr" name="addr">
-		    </div>
-		    <div class="col-sm-3">
-		      <button type="button" class="btn btn-default" id="addrFind">주소찾기</button>
+		      <input type="text" class="form-control" id="email" name="email" placeholder="abc@mail.com"/>
 		    </div>
 		  </div>
 		  
