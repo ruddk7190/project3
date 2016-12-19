@@ -13,8 +13,8 @@
   	SELECT COUNT(*) AS CNT FROM MEMBER WHERE ID=#{id}
   	</select>
   
-  	<select id="selectAll" resultType="com.hb.pro03.model.UserVo">
-  	<!-- SELECT * FROM GUEST -->
+  	<select id="login" parameterType="com.hb.pro03.model.UserVo" resultType="int">
+  	SELECT COUNT(*) AS CNT FROM MEMBER WHERE ID=#{id} AND PW=#{pw}
   	</select>
   	
   	<update id="updateOne" parameterType="com.hb.pro03.model.UserVo">

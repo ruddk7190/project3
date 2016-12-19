@@ -22,51 +22,47 @@ public class UserController {
 	@Autowired
 	private SqlSession sqlSession;
 	
-//	@RequestMapping(value="/user")
-//	public String MainPage(UserVo bean) {
-//		
-//		return "redirect:/";
-//	}
-	
 	@RequestMapping(value="/joinform")
 	public void joinForm(){
 		
 	}
 	
-	@RequestMapping(value="/userInsert",method=RequestMethod.POST)
+	@RequestMapping(value="/userInsert", method=RequestMethod.POST)
 	public String UserInsert(UserVo bean) {
-		//System.out.println(">>>"+bean);
+//		System.out.println(">>>"+bean);
+		
 		UserDao mapper = sqlSession.getMapper(UserDao.class);
 		mapper.insertOne(bean);
+		
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/idck",method=RequestMethod.POST)
-	public String idCk(Model model,@RequestParam("id") String id){//,HttpServletResponse res){
-		System.out.println("id:"+id);
-//		res.setCharacterEncoding("UTF-8");
-//		res.setContentType("text/html");
+	@RequestMapping(value="/idck", method=RequestMethod.POST)
+	public String idCk(Model model,@RequestParam("id") String id){
+		
 		UserDao mapper = sqlSession.getMapper(UserDao.class);
-//		UserVo bean = mapper.idCk(id);
-		
-		System.out.println(mapper.idCk(id));
-		
 		model.addAttribute("cnt", mapper.idCk(id));
-		return "idck";
-//		return "redirect:/joinform";
-//		String result=null;
-//		result=mapper.idCk(id);
 		
-//		PrintWriter out;
-//		try {
-//			out = res.getWriter();
-//			if(mapper.idCk(id)==null){
-//				out.write("YES");
-//			}else{
-//				out.write("NO");
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		return "idck";
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public void loginForm(){
+		
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String login(Model model, UserVo bean){
+		
+		UserDao mapper = sqlSession.getMapper(UserDao.class);
+		int result = mapper.login(bean);
+		if(result!=0){
+			//로그인 성공
+		}else{
+			//로그인 실패
+		}
+		model.addAttribute("cnt", result);
+		
+		return "idck";
 	}
 }

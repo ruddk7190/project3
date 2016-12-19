@@ -7,17 +7,49 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<title>로그인</title>
 <!-- 부트스트랩 -->
     <link href="/pro03/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
 	body {
-		  padding-top: 50px;
+		  padding-top: 200px;
 		}
 </style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		$('form').on('submit',function(){
+			$.ajax({
+				url:"/pro03/login",
+				type:'post',
+				data: {
+					id:$('#id').val()
+					, pw:$('#pw').val()
+					},
+				success: function(data){
+					if($.trim(data)==0){
+						alert("다시한번 확인해 주세요.");
+						$("#id").val("");
+						$("#pw").val("");
+					    return false;
+					}else{
+						alert("환영합니다!");
+						window.location.replace("/pro03/session");//세션을 따로 뽑아서 보내고 그 controller에서 redirect로 메인넘어가?
+					}
+				}
+			});
+		    return false;
+		});
+		
+		
+		
+	});
+</script>
 </head>
 <body>
-    <h1>Hello, world!</h1>
 
     <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -37,22 +69,44 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/pro03/">Home</a></li>
+            <li><a href="/pro03/">Home</a></li>
             <li><a href="/pro03/joinform">회원가입</a></li>
-            <li><a href="/pro03/login">로그인</a></li>
+            <li class="active"><a href="/pro03/login">로그인</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
     <div class="container">
-
       <div class="starter-template">
-        <h1>메인화면</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+       <form class="form-horizontal" action="/pro03/" method="post">
+       
+		  <div class="form-group">
+		    <label for="id" class="col-sm-4 control-label">아이디</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="id" name="id" />
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="pw" class="col-sm-4 control-label">비밀번호</label>
+		    <div class="col-sm-4">
+		      <input type="password" class="form-control" id="pw" name="pw" />
+		    </div>
+		  </div>
+		  
+		 
+		  
+		  <div class="form-group">
+		    <div class="col-sm-offset-6 col-sm-5">	
+		      <button type="button" class="btn btn-default">ID / PW 찾기</button>
+		      <button type="submit" class="btn btn-success">로그인</button>
+		    </div>
+		  </div>
+		</form>
+		
       </div>
 
     </div><!-- /.container -->
-    
 </body>
 </html>

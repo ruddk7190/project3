@@ -24,6 +24,7 @@
 			$("#addrFind").postcodifyPopUp(); 
 		}); */ 
 		
+		
 		$('#idCK').on('click',function(){
 			$.ajax({
 				url:"/pro03/idck",
@@ -43,6 +44,11 @@
 		});
 		
 		$('form').on('submit',function(){
+			var b = $("#birth1").val()+"/"+$("#birth2").val()+"/"+$("#birth3").val();
+			var p = $("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val();
+			$("#birth").val(b);
+			$("#phone").val(p);
+			
 			if ($("#id").val() == "") {
 			    alert("아이디를 꼭 입력하세요!");
 			    $("#id").focus();
@@ -158,7 +164,7 @@
           <ul class="nav navbar-nav">
             <li><a href="/pro03/">Home</a></li>
             <li class="active"><a href="/pro03/joinform">회원가입</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="/pro03/login">로그인</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -211,7 +217,7 @@
 		    <div class="col-sm-2">
 		       <input type="text" class="form-control" id="birth3" placeholder="01"/>일
 		    </div>
-		    <input type="hidden" class="form-control" id="birth" name="birth" placeholder="01"/>
+		    <input type="hidden" class="form-control" id="birth" name="birth"/>
 		    <!-- <div class="col-sm-8">
 		      <td colspan="2" class="form-control">
 		      <input type="tel" class="form-control" id="phone" name="phone" placeholder="010">
@@ -233,6 +239,7 @@
 		    <div class="col-sm-2">
 		       <input type="text" class="form-control" id="phone3" name="phone3" size="3" maxlength="4" placeholder="5678"/>
 		    </div>
+		    <input type="hidden" class="form-control" id="phone" name="phone"/>
 		    <!-- <div class="col-sm-8">
 		      <td colspan="2" class="form-control">
 		        <input type="text" id="phone1" name="phone1" size="2" maxlength="3" placeholder="010"/>&nbsp;-
