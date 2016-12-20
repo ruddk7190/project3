@@ -30,21 +30,23 @@
 					, pw:$('#pw').val()
 					},
 				success: function(data){
-					if($.trim(data)==0){
+					if($.trim(data)==""){
 						alert("다시한번 확인해 주세요.");
 						$("#id").val("");
 						$("#pw").val("");
 					    return false;
 					}else{
 						alert("환영합니다!");
-						window.location.replace("/pro03/session");//세션을 따로 뽑아서 보내고 그 controller에서 redirect로 메인넘어가?
+						window.location.replace("/pro03/");
 					}
 				}
 			});
 		    return false;
 		});
 		
-		
+		$("#findInfo").click(function(){
+			return false;
+		});
 		
 	});
 </script>
@@ -99,7 +101,7 @@
 		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-6 col-sm-5">	
-		      <button type="button" class="btn btn-default">ID / PW 찾기</button>
+		      <button type="button" class="btn btn-default" id="findInfo">ID / PW 찾기</button>
 		      <button type="submit" class="btn btn-success">로그인</button>
 		    </div>
 		  </div>

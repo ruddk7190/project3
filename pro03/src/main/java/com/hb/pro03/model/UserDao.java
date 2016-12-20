@@ -4,5 +4,5 @@ public interface UserDao {
 
 	void insertOne(UserVo bean);
 	int idCk(String id);
-	int login(UserVo bean);
+	UserVo login(UserVo bean);
 }

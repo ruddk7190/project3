@@ -2,8 +2,11 @@ package com.hb.pro03.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +31,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/userInsert", method=RequestMethod.POST)
-	public String UserInsert(UserVo bean) {
-//		System.out.println(">>>"+bean);
+	public String UserInsert(UserVo bean){
+		System.out.println(">>>"+bean);
 		
 		UserDao mapper = sqlSession.getMapper(UserDao.class);
 		mapper.insertOne(bean);
@@ -52,16 +55,21 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(Model model, UserVo bean){
-		
+	public String login(Model model, UserVo bean, HttpSession session){
+
+		UserVo result = null;
 		UserDao mapper = sqlSession.getMapper(UserDao.class);
-		int result = mapper.login(bean);
-		if(result!=0){
+		result = mapper.login(bean);
+		
+		if(result !=null){
 			//로그인 성공
+			System.out.println(":>"+result.getId());
+			session.setAttribute("result", true);
+			session.setAttribute("id", result.getId());
 		}else{
-			//로그인 실패
+			result=null;
 		}
-		model.addAttribute("cnt", result);
+		model.addAttribute("bean", result);
 		
 		return "idck";
 	}

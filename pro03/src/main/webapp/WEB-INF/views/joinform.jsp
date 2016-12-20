@@ -80,41 +80,35 @@
 				alert("이름을 꼭 입력하세요!");
 			    $("#name").focus();
 			    return false;
-			}else if ($("#birth1").val() == ""){
-				alert("생년월일을 꼭 입력하세요!");
-			    $("#birth1").focus();
-			    return false;
 			}else if ($("#birth1").val().length != 4 || !$.isNumeric($("#birth1").val())){
 				alert("생년월일의 '년도'를 4자리의 숫자로 입력하세요!");
 				$("#birth1").val("");
 			    $("#birth1").focus();
 			    return false; 
-			}else if ($("#birth2").val() == ""){
-				alert("생년월일을 꼭 입력하세요!");
-			    $("#birth2").focus();
-			    return false;
 			}else if ($("#birth2").val().length != 2 || !$.isNumeric($("#birth2").val())){
 				alert("생년월일의 '월'을 2자리의 숫자로 입력하세요!");
 				$("#birth2").val("");
 			    $("#birth2").focus();
 			    return false; 
-			}else if ($("#birth3").val() == ""){
-				alert("생년월일을 꼭 입력하세요!");
-			    $("#birth3").focus();
-			    return false;
 			}else if ($("#birth3").val().length != 2 || !$.isNumeric($("#birth3").val())){
 				alert("생년월일의 '일'을 2자리의 숫자로 입력하세요!");
 				$("#birth3").val("");
 			    $("#birth3").focus();
 			    return false; 
-			}else if ($("#phone").val() == ""){
-				alert("전화번호를 꼭 입력하세요!");
-			    $("#phone").focus();
+			}else if ($("#phone1").val().length != 3 || !$.isNumeric($("#phone1").val())){
+				alert("전화번호를 3자리의 숫자로 입력하세요!");
+				$("#phone1").val("");
+			    $("#phone1").focus();
 			    return false;
-			}else if ($("#phone").val().length != 13){
-				alert("전화번호를 '010-1111-1111' 의 형식으로 작성해주세요!");
-				$("#phone").val("");
-			    $("#phone").focus();
+			}else if ($("#phone2").val().length != 4 || !$.isNumeric($("#phone2").val())){
+				alert("전화번호를 4자리의 숫자로 입력하세요!");
+				$("#phone2").val("");
+			    $("#phone2").focus();
+			    return false;
+			}else if ($("#phone3").val().length != 4 || !$.isNumeric($("#phone3").val())){
+				alert("전화번호를 4자리의 숫자로 입력하세요!");
+				$("#phone3").val("");
+			    $("#phone3").focus();
 			    return false;
 			}else if ($("#addr").val() == ""){
 				alert("주소를 꼭 입력하세요!");
