@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>회원가입</title>
+<title>My Page</title>
 <!-- 부트스트랩 -->
     <link href="/pro03/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
@@ -20,28 +20,21 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		/* $(function() { 
-			$("#addrFind").postcodifyPopUp(); 
-		}); */ 
+		var birth = $("#birth").val();
+		var birth1 = birth.substring(0,4);
+		var birth2 = birth.substring(5,7);
+		var birth3 = birth.substring(8,10);
+		$("#birth1").val(birth1);
+		$("#birth2").val(birth2);
+		$("#birth3").val(birth3);
+		var phone = $("#phone").val();
+		var phone1 = phone.substring(0,3);
+		var phone2 = phone.substring(4,8);
+		var phone3 = phone.substring(9,13);
+		$("#phone1").val(phone1);
+		$("#phone2").val(phone2);
+		$("#phone3").val(phone3);
 		
-		
-		$('#idCK').on('click',function(){
-			$.ajax({
-				url:"/pro03/idck",
-				type: 'post',
-				data: {id:$('#id').val()},
-				success: function(data){
-					if($.trim(data)==0){
-						alert("사용 가능합니다.");
-						$("#hid").val("1");
-					}else{
-						alert("사용 불가능합니다.");
-						$("#hid").val("0");
-						$("#id").val("");
-					}
-				}
-			});
-		});
 		
 		$('form').on('submit',function(){
 			var b = $("#birth1").val()+"/"+$("#birth2").val()+"/"+$("#birth3").val();
@@ -49,15 +42,7 @@
 			$("#birth").val(b);
 			$("#phone").val(p);
 			
-			if ($("#id").val() == "") {
-			    alert("아이디를 꼭 입력하세요!");
-			    $("#id").focus();
-			    return false;
-			 } else if($("#hid").val() == "0"){
-				alert("아이디 중복검사 하세요!");
-				return false;
-				$("#id").focus(); 
-			}else if ($("#pw").val() == "") {
+			if ($("#pw").val() == "") {
 			    alert("비밀번호를 꼭 입력하세요!");
 			    $("#pw").focus();
 			    return false;
@@ -132,7 +117,7 @@
 				alert("정상적으로 가입완료");
 			}
 			
-		});	  
+		});
 	});
 </script>
 </head>
@@ -157,8 +142,8 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/pro03/">Home</a></li>
-            <li><a href="/pro03/login">로그인</a></li>
-            <li class="active"><a href="/pro03/joinform">회원가입</a></li>
+            <li><a href="/pro03/logout">로그아웃</a></li>
+           	<li class="active"><a href="/pro03/mypage">My Page</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -166,105 +151,75 @@
 
     <div class="container">
       <div class="starter-template">
-       <form class="form-horizontal" action="/pro03/userInsert" method="post">
+       <form class="form-horizontal" action="/pro03/UserUpdate" method="post">
        
 		  <div class="form-group">
-		    <label for="id" class="col-sm-2 control-label">아이디</label>
-		    <div class="col-sm-7">
-		      <input type="text" class="form-control" id="id" name="id" placeholder="영문,숫자 조합"/>
-		      <input type="hidden" id="hid" name="hid" value="0"/>
-		    </div>
-		    <div class="col-sm-3">
-		      <button type="button" class="btn btn-default" id="idCK">중복확인</button>
+		    <label for="pw" class="col-sm-4 control-label">비밀번호</label>
+		    <div class="col-sm-6">
+		      <input type="password" class="form-control" id="pw" name="pw" value="${bean.pw }" />
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="pw" class="col-sm-2 control-label">비밀번호</label>
-		    <div class="col-sm-8">
-		      <input type="password" class="form-control" id="pw" name="pw" placeholder="6자 이상"/>
+		    <label for="pw2" class="col-sm-4 control-label">비밀번호 확인</label>
+		    <div class="col-sm-6">
+		      <input type="password" class="form-control" id="pw2" name="pw2"  />
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="pw2" class="col-sm-2 control-label">비밀번호 확인</label>
-		    <div class="col-sm-8">
-		      <input type="password" class="form-control" id="pw2" name="pw2" placeholder="위의 비밀번호와 동일하게 작성"/>
+		    <label for="name" class="col-sm-4 control-label">이름</label>
+		    <div class="col-sm-6">
+		      <input type="text" class="form-control" id="name" name="name" value="${bean.name }"/>
 		    </div>
 		  </div>
 		  
-		  <div class="form-group">
-		    <label for="name" class="col-sm-2 control-label">이름</label>
-		    <div class="col-sm-8">
-		      <input type="text" class="form-control" id="name" name="name" placeholder="실명"/>
-		    </div>
-		  </div>
-		  
-		  <div class="form-group">
-		    <label for="birth" class="col-sm-2 control-label">생년월일</label>
+		 <div class="form-group">
+		    <label for="birth" class="col-sm-4 control-label">생년월일</label>
 		    <div class="col-sm-2">
-		       <input type="text" class="form-control" id="birth1" placeholder="1900"/>&nbsp;년
+		       <input type="text" class="form-control" id="birth1" value=""/>&nbsp;년
 		    </div>
 		    <div class="col-sm-2">
-		       <input type="text" class="form-control" id="birth2" placeholder="01"/>&nbsp;월
+		       <input type="text" class="form-control" id="birth2"  value=""/>&nbsp;월
 		    </div>
 		    <div class="col-sm-2">
-		       <input type="text" class="form-control" id="birth3" placeholder="01"/>일
+		       <input type="text" class="form-control" id="birth3"  value=""/>일
 		    </div>
-		    <input type="hidden" class="form-control" id="birth" name="birth"/>
-		    <!-- <div class="col-sm-8">
-		      <td colspan="2" class="form-control">
-		      <input type="tel" class="form-control" id="phone" name="phone" placeholder="010">
-		        <input type="text" id="birth1" name="birth"1 size="2" maxlength="4" placeholder="1900"/>&nbsp;/
-				<input type="text" id="birth2" name="birth2" size="3" maxlength="2" placeholder="01"/>&nbsp;/
-				<input type="text" id="birth3" name="birth3" size="3" maxlength="2" placeholder="01"/>
-		      </td>
-		    </div> -->
+		    <input type="hidden" class="form-control" id="birth" name="birth" value="${bean.birth }"/>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="phone" class="col-sm-2 control-label">전화번호</label>
+		    <label for="phone" class="col-sm-4 control-label">전화번호</label>
 		     <div class="col-sm-2">
-		       <input type="text" class="form-control" id="phone1" name="phone1" size="2" maxlength="3" placeholder="010"/>&nbsp;-
+		       <input type="text" class="form-control" id="phone1" name="phone1" size="2" maxlength="3"/>&nbsp;-
 		    </div>
 		    <div class="col-sm-2">
-		       <input type="text" class="form-control" id="phone2" name="phone2" size="3" maxlength="4" placeholder="1234"/>&nbsp;-
+		       <input type="text" class="form-control" id="phone2" name="phone2" size="3" maxlength="4"/>&nbsp;-
 		    </div>
 		    <div class="col-sm-2">
-		       <input type="text" class="form-control" id="phone3" name="phone3" size="3" maxlength="4" placeholder="5678"/>
+		       <input type="text" class="form-control" id="phone3" name="phone3" size="3" maxlength="4"/>
 		    </div>
-		    <input type="hidden" class="form-control" id="phone" name="phone"/>
-		    <!-- <div class="col-sm-8">
-		      <td colspan="2" class="form-control">
-		        <input type="text" id="phone1" name="phone1" size="2" maxlength="3" placeholder="010"/>&nbsp;-
-				<input type="text" id="phone2" name="phone2" size="3" maxlength="4" placeholder="1234"/>&nbsp;-
-				<input type="text" id="phone3" name="phone3" size="3" maxlength="4" placeholder="5678"/>
-		      </td>
-		    </div> -->
+		    <input type="hidden" class="form-control" id="phone" name="phone" value="${bean.phone }"/>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="addr" class="col-sm-2 control-label">주소</label>
-		    <div class="col-sm-7">
-		      <input type="text" class="form-control" id="addr" name="addr" placeholder="주소 작성"/>
-		    </div>
-		    <div class="col-sm-3">
-		      <button type="button" class="btn btn-default" id="addrFind">주소찾기</button>
+		    <label for="email" class="col-sm-4 control-label">이메일</label>
+		    <div class="col-sm-6">
+		      <input type="text" class="form-control" id="email" name="email" value="${bean.email }" />
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="email" class="col-sm-2 control-label">이메일</label>
-		    <div class="col-sm-8">
-		      <input type="text" class="form-control" id="email" name="email" placeholder="abc@mail.com"/>
+		    <label for="addr" class="col-sm-4 control-label">주소</label>
+		    <div class="col-sm-6">
+		      <input type="text" class="form-control" id="addr" name="addr" value="${bean.addr }"/>
 		    </div>
 		  </div>
-		  
+		 
 		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-5 col-sm-5">	
-		      <button type="submit" class="btn btn-success">회원가입</button>
-		      <button type="reset" class="btn btn-default">취소</button>
+		      <button type="submit" class="btn btn-success">수정 완료</button>
 		    </div>
 		  </div>
 		</form>
@@ -272,6 +227,5 @@
       </div>
 
     </div><!-- /.container -->
-
 </body>
 </html>

@@ -45,6 +45,7 @@
 		});
 		
 		$("#findInfo").click(function(){
+			
 			return false;
 		});
 		
@@ -72,8 +73,8 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/pro03/">Home</a></li>
-            <li><a href="/pro03/joinform">회원가입</a></li>
             <li class="active"><a href="/pro03/login">로그인</a></li>
+            <li><a href="/pro03/joinform">회원가입</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

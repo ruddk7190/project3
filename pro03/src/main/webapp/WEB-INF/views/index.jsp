@@ -38,8 +38,23 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/pro03/">Home</a></li>
-            <li><a href="/pro03/joinform">회원가입</a></li>
+            <%
+            String id = (String)session.getAttribute("id");
+            
+            if(session.getAttribute("id")!=null){ 	//id값이 널이 아니면(로그인중이면)
+    			if((Boolean)session.getAttribute("result")){ 
+            %>
+            <li><a href="/pro03/logout">로그아웃</a></li>
+           	<li><a href="/pro03/mypage">My Page</a></li>
+            <%
+    			}
+            }else{
+            %>
             <li><a href="/pro03/login">로그인</a></li>
+            <li><a href="/pro03/joinform">회원가입</a></li>
+            <%
+            }
+            %>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

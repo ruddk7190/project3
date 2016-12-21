@@ -25,13 +25,14 @@ public class UserController {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//회원가입 페이지
 	@RequestMapping(value="/joinform")
 	public void joinForm(){
 		
 	}
 	
 	@RequestMapping(value="/userInsert", method=RequestMethod.POST)
-	public String UserInsert(UserVo bean){
+	public String UserInsert(UserVo bean){	//회원가입
 		System.out.println(">>>"+bean);
 		
 		UserDao mapper = sqlSession.getMapper(UserDao.class);
@@ -41,14 +42,16 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/idck", method=RequestMethod.POST)
-	public String idCk(Model model,@RequestParam("id") String id){
+	public String idCk(Model model,@RequestParam("id") String id){	//id 중복체크
 		
 		UserDao mapper = sqlSession.getMapper(UserDao.class);
-		model.addAttribute("cnt", mapper.idCk(id));
+		UserVo result = mapper.selectOne(id);
+		model.addAttribute("bean", result);
 		
 		return "idck";
 	}
 	
+	//로그인 페이지
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public void loginForm(){
 		
@@ -57,9 +60,8 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(Model model, UserVo bean, HttpSession session){
 
-		UserVo result = null;
 		UserDao mapper = sqlSession.getMapper(UserDao.class);
-		result = mapper.login(bean);
+		UserVo result = mapper.login(bean);
 		
 		if(result !=null){
 			//로그인 성공
@@ -72,5 +74,35 @@ public class UserController {
 		model.addAttribute("bean", result);
 		
 		return "idck";
+	}
+	
+	//id,찾기(modal)
+	
+	//로그아웃
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	//회원 페이지
+	@RequestMapping(value="/mypage", method=RequestMethod.GET)
+	public String mypage(Model model, HttpSession session){
+		String id = (String)session.getAttribute("id");
+		UserDao mapper = sqlSession.getMapper(UserDao.class);
+		UserVo result = mapper.selectOne(id);
+		model.addAttribute("bean", result);
+		
+		return "mypage";
+	}
+	
+	@RequestMapping(value="/update", method=RequestMethod.GET)
+	public String update(Model model, HttpSession session){
+		String id = (String)session.getAttribute("id");
+		UserDao mapper = sqlSession.getMapper(UserDao.class);
+		UserVo result = mapper.selectOne(id);
+		model.addAttribute("bean", result);
+		
+		return "update";
 	}
 }
